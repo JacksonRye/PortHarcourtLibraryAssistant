@@ -1,31 +1,29 @@
 package library.assistant.ui.addbook;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import library.assistant.alert.AlertMaker;
+import library.assistant.database.DatabaseHandler;
+
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
-
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import library.assistant.database.DatabaseHandler;
-
 public class BookAddController implements Initializable {
-	
-	@FXML
-	private JFXTextField title;
-	
-	@FXML
-	private JFXTextField id;
-	
-	@FXML
+
+    @FXML
+    private JFXTextField title;
+
+    @FXML
+    private JFXTextField id;
+
+    @FXML
 	private JFXTextField publisher;
 	
 	@FXML
@@ -74,38 +72,28 @@ public class BookAddController implements Initializable {
 		
 		if (bookID.isEmpty()||
 				bookAuthor.isEmpty()||bookPublisher.isEmpty()||bookTitle.isEmpty()) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setHeaderText(null);
-			alert.setContentText("Please Enter in all fields");
-			alert.showAndWait();
-			return;
-		} else {
+            AlertMaker.showErrorMessage("Error", "Please enter all contents");
+            return;
+        } else {
 			
 			String qu = "INSERT INTO BOOK VALUES ("
 					+ "'" + bookID + "',"
 					+ "'" + bookTitle + "',"
-					+ "'" + bookAuthor + "',"
-					+ "'" + bookPublisher + "',"
-					+ "'" + true + "'"
-							+ ")";
-			
-			System.out.println(qu);
-			if(databaseHandler.execAction(qu)) {
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setHeaderText(null);
-				alert.setContentText("Sucess");
-				alert.showAndWait();
-				return;
-				
-			} else {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setHeaderText(null);
-				alert.setContentText("Failed");
-				alert.showAndWait();
-				return;
-			}
-			
-		}
+                    + "'" + bookAuthor + "',"
+                    + "'" + bookPublisher + "',"
+                    + "'" + true + "'"
+                    + ")";
+
+            System.out.println(qu);
+            if (databaseHandler.execAction(qu)) {
+                AlertMaker.showSimpleAlert("Success", "Book Added Successfully");
+
+            } else {
+                AlertMaker.showErrorMessage("Error", "Book Addition Failed");
+            }
+            return;
+
+        }
 		
 	}
 	

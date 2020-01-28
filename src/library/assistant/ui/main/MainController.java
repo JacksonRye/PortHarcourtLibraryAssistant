@@ -1,15 +1,6 @@
 package library.assistant.ui.main;
 
-import java.io.IOException;
-import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Optional;
-import java.util.ResourceBundle;
-
 import com.jfoenix.effects.JFXDepthManager;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,7 +17,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import library.assistant.alert.AlertMaker;
 import library.assistant.database.DatabaseHandler;
+
+import java.io.IOException;
+import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 	
@@ -183,11 +183,8 @@ public class MainController implements Initializable {
     @FXML
 	private void loadRenewOperation(ActionEvent event){
 
-    	if (!isReadyForSubmission){
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setTitle("Failed");
-			alert.setHeaderText(null);
-			alert.setContentText("Please select a book to renew");
+    	if (!isReadyForSubmission) {
+			AlertMaker.showErrorMessage("Failed", "Please Enter a book to renew");
 			return;
 		}
 
@@ -203,25 +200,13 @@ public class MainController implements Initializable {
 					" WHERE bookID = '" + txtRenewBookID.getText()  +
 					"'";
     		System.out.println(ac);
-    		if (databaseHandler.execAction(ac)){
-    			Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-    			alert1.setTitle("Success");
-    			alert1.setHeaderText(null);
-    			alert1.setContentText("Book has been renewed");
-    			alert.showAndWait();
+    		if (databaseHandler.execAction(ac)) {
+				AlertMaker.showSimpleAlert("Success", "Book has been renewed");
 			} else {
-    			Alert alert1 = new Alert(Alert.AlertType.ERROR);
-    			alert1.setTitle("Failed");
-    			alert1.setHeaderText(null);
-    			alert1.setContentText("Renew has failed");
-    			alert1.showAndWait();
+				AlertMaker.showErrorMessage("Error", "Book renewal failed");
 			}
 		} else {
-    		Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-    		alert1.setTitle("Cancelled");
-    		alert1.setHeaderText(null);
-    		alert1.setContentText("Renew Operation cancelled");
-    		alert1.showAndWait();
+			AlertMaker.showSimpleAlert("Cancelled", "Book renewal cancelled");
 		}
 	}
     
@@ -263,29 +248,15 @@ public class MainController implements Initializable {
 			String str2 = "UPDATE BOOK SET isAvail = false WHERE id = " +
 					"'" + bookID + "'";
 
-			if (databaseHandler.execAction(str)&&databaseHandler.execAction(str2)){
-				Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-				alert1.setTitle("Success");
-				alert1.setHeaderText(null);
-				alert1.setContentText("Book Issue Complete");
+			if (databaseHandler.execAction(str)&&databaseHandler.execAction(str2)) {
+				AlertMaker.showSimpleAlert("Success", "Book Issue successful");
 
-				alert1.showAndWait();
 			} else {
-				Alert alert1 = new Alert(Alert.AlertType.ERROR);
-				alert1.setTitle("Failed");
-				alert1.setHeaderText(null);
-				alert1.setContentText("Issue Operation Failed");
-
-				alert1.showAndWait();
+				AlertMaker.showErrorMessage("Error", "Book Issue Failed");
 			}
 
 		} else {
-			Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-			alert1.setTitle("Canceld");
-			alert1.setHeaderText(null);
-			alert1.setContentText("Book Issue Canceled");
-
-			alert1.showAndWait();
+			AlertMaker.showSimpleAlert("Cancelled", "Book Issue cancelled");
 		}
 
 	}
@@ -294,8 +265,8 @@ public class MainController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		JFXDepthManager.setDepth(bookInfo, 1);
 		JFXDepthManager.setDepth(memberInfo, 1);
-		databaseHandler = databaseHandler.getInstance();
-		
+		databaseHandler = DatabaseHandler.getInstance();
+
 	}
 
 	@FXML
@@ -353,11 +324,7 @@ public class MainController implements Initializable {
 	@FXML
 	private void loadSubmissionOperation(ActionEvent event) {
 		if (!isReadyForSubmission) {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setTitle("Failed");
-			alert.setHeaderText(null);
-			alert.setContentText("Please Select A Book to submit");
-			alert.showAndWait();
+			AlertMaker.showErrorMessage("Failed", "Please enter a book to submit");
 			return;
 		}
 
@@ -375,28 +342,20 @@ public class MainController implements Initializable {
 		if (response.get() == ButtonType.OK) {
 
 			if (databaseHandler.execAction(ac1) && databaseHandler.execAction(ac2)) {
-				Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-				alert.setTitle("Success!");
-				alert.setHeaderText(null);
-				alert.setContentText("Book Has Been Submitted");
-				alert.showAndWait();
+				AlertMaker.showSimpleAlert("Success", "Book has been submitted");
 			} else {
-				Alert alert1 = new Alert(Alert.AlertType.ERROR);
-				alert.setTitle("Failed");
-				alert.setHeaderText(null);
-				alert.setContentText("Submission Has failed");
-				alert.showAndWait();
+				AlertMaker.showErrorMessage("Failed", "Book Submission Failed");
 			}
 
 			issueDataList.setItems(null);
-		}
-	 else {
-			Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-			alert1.setTitle("Cancelled");
-			alert1.setHeaderText(null);
-			alert1.setContentText("Submission Operation Cancelled");
-			alert1.showAndWait();
+		} else {
+			AlertMaker.showSimpleAlert("Cancelled", "Submission Operation Cancelled");
 
 		}
+	}
+
+	@FXML
+	private void loadSettings(ActionEvent event) {
+		loadWindow("/library/assistant/settings/settings.fxml", "Settings");
 	}
 }
