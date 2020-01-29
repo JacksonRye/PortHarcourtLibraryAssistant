@@ -14,6 +14,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -64,28 +65,30 @@ public class MainController implements Initializable {
     @FXML
     private ResourceBundle resources;
 
-    @FXML
+	@FXML
 	private ListView<String> issueDataList;
 
 
-    @FXML
-    private URL location;
+	@FXML
+	private URL location;
 
-    Boolean isReadyForSubmission = false;
-    
-    DatabaseHandler databaseHandler;
+	Boolean isReadyForSubmission = false;
 
-    @FXML
-    private void loadAddBook(ActionEvent event) {
-    	loadWindow("/library/assistant/ui/addbook/add_book.fxml",
-    			"Add Books");
-    	
-    }
+	DatabaseHandler databaseHandler;
+	@FXML
+	private StackPane rootPane;
 
-    @FXML
-    void loadAddMember(ActionEvent event) {
-    	loadWindow("/library/assistant/ui/addmember/member_add.fxml",
-    			"Add New Member");
+	@FXML
+	private void loadAddBook(ActionEvent event) {
+		loadWindow("/library/assistant/ui/addbook/add_book.fxml",
+				"Add Books");
+
+	}
+
+	@FXML
+	void loadAddMember(ActionEvent event) {
+		loadWindow("/library/assistant/ui/addmember/member_add.fxml",
+				"Add New Member");
 
     }
 
@@ -357,5 +360,16 @@ public class MainController implements Initializable {
 	@FXML
 	private void loadSettings(ActionEvent event) {
 		loadWindow("/library/assistant/settings/settings.fxml", "Settings");
+	}
+
+	@FXML
+	private void handleMenuClose(ActionEvent event) {
+		((Stage) rootPane.getScene().getWindow()).close();
+	}
+
+	@FXML
+	private void handleMenuFullScreen(ActionEvent event) {
+		Stage stage = ((Stage) rootPane.getScene().getWindow());
+		stage.setFullScreen(!stage.isFullScreen());
 	}
 }

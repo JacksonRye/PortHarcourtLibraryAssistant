@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="library.assistant.ui.main.MainController">
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="811.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="library.assistant.ui.main.MainController">
 	<children>
 		<BorderPane prefHeight="200.0" prefWidth="200.0">
 			<top>
@@ -28,19 +28,27 @@
 					<menus>
 						<Menu mnemonicParsing="false" text="File">
 							<items>
-								<MenuItem mnemonicParsing="false" text="Close" />
+								<MenuItem mnemonicParsing="false" onAction="#handleMenuClose" text="Close" />
 							</items>
 						</Menu>
-						<Menu mnemonicParsing="false" text="Edit">
+						<Menu mnemonicParsing="false" text="Add">
 							<items>
-								<MenuItem mnemonicParsing="false" text="Delete" />
+								<MenuItem mnemonicParsing="false" onAction="#loadAddBook" text="Add Book" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadAddMember" text="Add Member" />
 							</items>
 						</Menu>
-						<Menu mnemonicParsing="false" text="Help">
+						<Menu mnemonicParsing="false" text="View">
 							<items>
-								<MenuItem mnemonicParsing="false" text="About" />
+								<MenuItem mnemonicParsing="false" onAction="#loadBookTable" text="View Books" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadMemberTable" text="View Members" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleMenuFullScreen" text="View Fullscreen" />
 							</items>
 						</Menu>
+                  <Menu mnemonicParsing="false" text="Help">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                     </items>
+                  </Menu>
 					</menus>
 				</MenuBar>
 			</top>
@@ -83,7 +91,7 @@
 								</ImageView>
 							</graphic>
 						</Button>
-						<Button contentDisplay="TOP" layoutX="10.0" layoutY="202.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="153.0" text="Settings">
+						<Button contentDisplay="TOP" layoutX="10.0" layoutY="202.0" mnemonicParsing="false" onAction="#loadSettings" prefHeight="150.0" prefWidth="153.0" text="Settings">
 							<graphic>
 								<ImageView fitHeight="34.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
 									<image>

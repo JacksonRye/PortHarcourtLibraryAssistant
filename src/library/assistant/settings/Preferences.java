@@ -2,6 +2,7 @@ package library.assistant.settings;
 
 import com.google.gson.Gson;
 import library.assistant.alert.AlertMaker;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.io.*;
 import java.util.logging.Level;
@@ -20,39 +21,7 @@ public class Preferences {
         nDaysWithoutFine = 14;
         finePerDay = 2;
         username = "admin";
-        password = "admin";
-    }
-
-    public int getnDaysWithoutFine() {
-        return nDaysWithoutFine;
-    }
-
-    public void setnDaysWithoutFine(int nDaysWithoutFine) {
-        this.nDaysWithoutFine = nDaysWithoutFine;
-    }
-
-    public float getFinePerDay() {
-        return finePerDay;
-    }
-
-    public void setFinePerDay(float finePerDay) {
-        this.finePerDay = finePerDay;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+        setPassword("admin");
     }
 
     public static void initConfig(){
@@ -103,6 +72,42 @@ public class Preferences {
             } catch (IOException ex) {
                 Logger.getLogger(Preferences.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+    }
+
+    public int getnDaysWithoutFine() {
+        return nDaysWithoutFine;
+    }
+
+    public void setnDaysWithoutFine(int nDaysWithoutFine) {
+        this.nDaysWithoutFine = nDaysWithoutFine;
+    }
+
+    public float getFinePerDay() {
+        return finePerDay;
+    }
+
+    public void setFinePerDay(float finePerDay) {
+        this.finePerDay = finePerDay;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        if (password.length() < 16) {
+            this.password = DigestUtils.sha1Hex(password);
+        } else {
+            this.password = password;
         }
     }
 

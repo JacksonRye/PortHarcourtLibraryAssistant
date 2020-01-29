@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Library Assistant:jar">
+    <output-path>$PROJECT_DIR$/classes/artifacts/Library_Assistant_jar</output-path>
+    <root id="archive" name="Library Assistant.jar">
+      <element id="module-output" name="Library Assistant" />
+      <element id="library" level="module" name="derbyclient.jar" module-name="Library Assistant" />
+      <element id="extracted-dir" path="$USER_HOME$/java/db-derby-10.14.2.0-bin/lib/derby.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/java/db-derby-10.14.2.0-bin/lib/derbyclient.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/java/commons-codec-1.9.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/java/gson-2.8.6.jar" path-in-jar="/" />
+      <element id="library" level="module" name="jfoenix-8.0.8.jar" module-name="Library Assistant" />
+      <element id="library" level="module" name="derby.jar" module-name="Library Assistant" />
+      <element id="extracted-dir" path="$USER_HOME$/java/jfoenix-8.0.8.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

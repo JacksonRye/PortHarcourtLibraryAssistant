@@ -1,13 +1,7 @@
 package library.assistant.database;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.sql.*;
 
 public final class DatabaseHandler {
     
@@ -70,7 +64,9 @@ public final class DatabaseHandler {
             conn = DriverManager.getConnection(DB_URL);
             
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Can't load database",
+                    "Database Error", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
         }
     }
 
