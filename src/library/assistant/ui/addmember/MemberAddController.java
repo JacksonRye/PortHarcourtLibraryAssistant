@@ -62,6 +62,11 @@ public class MemberAddController implements Initializable {
             return;
         }
 
+        if (isInEditMode) {
+            handleMemberEdit();
+            return;
+        }
+
         String st = "INSERT INTO MEMBER VALUES ("
                 + "'" + mID + "',"
                 + "'" + mName + "',"
@@ -76,6 +81,17 @@ public class MemberAddController implements Initializable {
             AlertMaker.showErrorMessage("Error", "Member Addition Failed");
         }
         return;
+    }
+
+    private void handleMemberEdit() {
+        MemberListController.Member member = new MemberListController.Member(id.getText(), name.getText(),
+                mobile.getText(), email.getText());
+
+        if (DatabaseHandler.getInstance().updateMember(member)) {
+            AlertMaker.showSimpleAlert("Success", "Member updated successfully");
+        } else {
+            AlertMaker.showErrorMessage("Failed", "Can't Update member");
+        }
     }
 
 

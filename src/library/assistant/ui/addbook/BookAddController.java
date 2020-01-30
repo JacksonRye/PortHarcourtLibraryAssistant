@@ -83,35 +83,55 @@ public class BookAddController implements Initializable {
 
 		if (bookID.isEmpty() ||
 				bookAuthor.isEmpty() || bookPublisher.isEmpty() || bookTitle.isEmpty()) {
-            AlertMaker.showErrorMessage("Error", "Please enter all contents");
-            return;
-        } else {
-			
-			String qu = "INSERT INTO BOOK VALUES ("
-					+ "'" + bookID + "',"
-					+ "'" + bookTitle + "',"
-                    + "'" + bookAuthor + "',"
-                    + "'" + bookPublisher + "',"
-                    + "'" + true + "'"
-                    + ")";
+			AlertMaker.showErrorMessage("Error", "Please enter all contents");
+			return;
+		}
 
-            System.out.println(qu);
-            if (databaseHandler.execAction(qu)) {
-                AlertMaker.showSimpleAlert("Success", "Book Added Successfully");
 
-            } else {
-                AlertMaker.showErrorMessage("Error", "Book Addition Failed");
-            }
-            return;
+		if (isInEditMode) {
+			handleEditOperation();
+			return;
+		}
 
-        }
+		String qu = "INSERT INTO BOOK VALUES ("
+				+ "'" + bookID + "',"
+				+ "'" + bookTitle + "',"
+				+ "'" + bookAuthor + "',"
+				+ "'" + bookPublisher + "',"
+				+ "'" + true + "'"
+				+ ")";
+
+		System.out.println(qu);
+		if (databaseHandler.execAction(qu)) {
+			AlertMaker.showSimpleAlert("Success", "Book Added Successfully");
+
+		} else {
+			AlertMaker.showErrorMessage("Error", "Book Addition Failed");
+		}
+		return;
+
+
 	}
-	
+
+	private void handleEditOperation() {
+
+		BookListController.Book book = new BookListController.Book(title.getText(),
+				id.getText(), author.getText(), publisher.getText(), true);
+
+		if (databaseHandler.updateBook(book)) {
+			AlertMaker.showSimpleAlert("Success", "Book Updated");
+		} else {
+			AlertMaker.showErrorMessage("Failed", "Can't update book");
+		}
+
+
+	}
+
 	@FXML
 	private void cancel(ActionEvent event) {
 		Stage stage = (Stage) rootPane.getScene().getWindow();
 		stage.close();
-		
+
 	}
 	
 

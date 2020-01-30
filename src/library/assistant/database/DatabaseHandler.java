@@ -94,8 +94,8 @@ public final class DatabaseHandler {
                         "       issueTime timestamp default CURRENT_TIMESTAMP,\n" +
                         "       renew_count integer default 0,\n" +
                         "       FOREIGN KEY (bookID) REFERENCES BOOK(id), \n" +
-                        "       FOREIGN KEY (memberID) REFERENCES MEMBER(id)" +
-                        " )");
+                    "       FOREIGN KEY (memberID) REFERENCES MEMBER(id)" +
+                    " )");
             }
 
         } catch (SQLException e) {
@@ -104,14 +104,33 @@ public final class DatabaseHandler {
 
         }
     }
-    
-    void setupBookTable(){
+
+    public boolean updateBook(Book book) {
+        String update = "UPDATE BOOK SET title = ?, author = ?," +
+                " publisher = ? WHERE id = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(update);
+            stmt.setString(1, book.getTitle());
+            stmt.setString(2, book.getAuthor());
+            stmt.setString(3, book.getPublisher());
+            stmt.setString(4, book.getId());
+            int res = stmt.executeUpdate();
+
+            return (res > 0);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    void setupBookTable() {
         String TABLE_NAME = "BOOK";
         try {
             stmt = conn.createStatement();
-            
+
             DatabaseMetaData dbm = conn.getMetaData();
-            ResultSet tables = 
+            ResultSet tables =
                     dbm.getTables(null, null, TABLE_NAME.toUpperCase(), null);
             
             if (tables.next()) {
@@ -217,5 +236,25 @@ public final class DatabaseHandler {
         return false;
     }
 
+//    id varchar(200) primary key, \n"
+//            + "         name varchar(200),\n"
+//            + "         mobile varchar(20),\n"
+//            + "         email varchar(100)\n"
 
+    public boolean updateMember(MemberListController.Member member) {
+        String update = "UPDATE MEMBER SET name = ?, mobile = ?, email = ? WHERE id = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(update);
+            stmt.setString(1, member.getName());
+            stmt.setString(2, member.getMobile());
+            stmt.setString(3, member.getEmail());
+            stmt.setString(4, member.getId());
+
+            int res = stmt.executeUpdate();
+            return (res > 0);
+        } catch (SQLException ex) {
+            System.out.println(ex.getLocalizedMessage());
+        }
+        return false;
+    }
 }

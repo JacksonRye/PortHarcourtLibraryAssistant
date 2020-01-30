@@ -61,8 +61,9 @@ public class BookListController implements Initializable {
 	}
 	
 	private void loadData() {
+		list.clear();
 		DatabaseHandler handler = DatabaseHandler.getInstance();
-		
+
 		String qu = "SELECT * FROM BOOK";
 		ResultSet rs = handler.execQuery(qu);
 		try {

@@ -52,16 +52,17 @@ public class MemberListController implements Initializable {
 
 	
 	private void loadData() {
-		DatabaseHandler handler = DatabaseHandler.getInstance();
-		
-		String qu = "SELECT * FROM MEMBER";
-		ResultSet rSet = handler.execQuery(qu);
-		
-		try {
-			while (rSet.next()) {
-				String id = rSet.getString("id");
-				String name = rSet.getString("name");
-				String mobile = rSet.getString("mobile");
+        list.clear();
+        DatabaseHandler handler = DatabaseHandler.getInstance();
+
+        String qu = "SELECT * FROM MEMBER";
+        ResultSet rSet = handler.execQuery(qu);
+
+        try {
+            while (rSet.next()) {
+                String id = rSet.getString("id");
+                String name = rSet.getString("name");
+                String mobile = rSet.getString("mobile");
 				String email = rSet.getString("email");
 
 				list.add(new Member(id, name, mobile, email));
