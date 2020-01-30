@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import library.assistant.alert.AlertMaker;
 import library.assistant.database.DatabaseHandler;
+import library.assistant.util.LibraryAssistantUtil;
 
 import java.io.IOException;
 import java.net.URL;
@@ -101,22 +102,23 @@ public class MainController implements Initializable {
 
     @FXML
     void loadMemberTable(ActionEvent event) {
-    	loadWindow("/library/assistant/ui/listusers/user_list.fxml",
-    			"Show Members");
+        loadWindow("/library/assistant/ui/listmembers/member_list.fxml",
+                "Show Members");
 
     }
 
     
     void loadWindow(String loc, String title) {
     	try {
-			Parent parent = FXMLLoader.load(getClass().getResource(loc));
-			
-			Stage stage = new Stage(StageStyle.DECORATED);
-			stage.setTitle(title);
-			stage.setScene(new Scene(parent));
-			stage.show();
-			
-		} catch (IOException e) {
+            Parent parent = FXMLLoader.load(getClass().getResource(loc));
+
+            Stage stage = new Stage(StageStyle.DECORATED);
+            LibraryAssistantUtil.setStageIcon(stage);
+            stage.setTitle(title);
+            stage.setScene(new Scene(parent));
+            stage.show();
+
+        } catch (IOException e) {
 			e.printStackTrace();
 		}
 

@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import library.assistant.alert.AlertMaker;
 import library.assistant.database.DatabaseHandler;
+import library.assistant.ui.listbook.BookListController;
 
 import java.net.URL;
 import java.sql.ResultSet;
@@ -28,26 +29,27 @@ public class BookAddController implements Initializable {
 	
 	@FXML
 	private JFXTextField author;
-	
+
 	@FXML
 	private JFXButton saveButton;
-	
+
 	@FXML
 	private JFXButton cancelButton;
-	
+
 	@FXML
 	private AnchorPane rootPane;
-	
+
 	DatabaseHandler databaseHandler;
+	private Boolean isInEditMode = Boolean.FALSE;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		databaseHandler =  DatabaseHandler.getInstance();
+		databaseHandler = DatabaseHandler.getInstance();
 
 		checkData();
-		
+
 	}
-	
+
 	private void checkData() {
 		String qu = "SELECT title FROM BOOK";
 		ResultSet rs = databaseHandler.execQuery(qu);
@@ -60,7 +62,16 @@ public class BookAddController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
+	}
+
+	public void inflateUI(BookListController.Book book) {
+		title.setText(book.getTitle());
+		id.setText(book.getId());
+		author.setText(book.getAuthor());
+		publisher.setText(book.getPublisher());
+		id.setEditable(false);
+		isInEditMode = Boolean.TRUE;
 	}
 
 	@FXML
@@ -69,9 +80,9 @@ public class BookAddController implements Initializable {
 		String bookAuthor = author.getText();
 		String bookTitle = title.getText();
 		String bookPublisher = publisher.getText();
-		
-		if (bookID.isEmpty()||
-				bookAuthor.isEmpty()||bookPublisher.isEmpty()||bookTitle.isEmpty()) {
+
+		if (bookID.isEmpty() ||
+				bookAuthor.isEmpty() || bookPublisher.isEmpty() || bookTitle.isEmpty()) {
             AlertMaker.showErrorMessage("Error", "Please enter all contents");
             return;
         } else {
@@ -94,7 +105,6 @@ public class BookAddController implements Initializable {
             return;
 
         }
-		
 	}
 	
 	@FXML

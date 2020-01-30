@@ -2,25 +2,14 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
-
-<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="811.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="library.assistant.ui.main.MainController">
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity"
+		   minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="811.0"
+		   xmlns="http://javafx.com/javafx/8.0.171" fx:controller="library.assistant.ui.main.MainController">
 	<children>
 		<BorderPane prefHeight="200.0" prefWidth="200.0">
 			<top>
@@ -28,27 +17,28 @@
 					<menus>
 						<Menu mnemonicParsing="false" text="File">
 							<items>
-								<MenuItem mnemonicParsing="false" onAction="#handleMenuClose" text="Close" />
+								<MenuItem mnemonicParsing="false" onAction="#handleMenuClose" text="Close"/>
 							</items>
 						</Menu>
 						<Menu mnemonicParsing="false" text="Add">
 							<items>
-								<MenuItem mnemonicParsing="false" onAction="#loadAddBook" text="Add Book" />
-                        <MenuItem mnemonicParsing="false" onAction="#loadAddMember" text="Add Member" />
+								<MenuItem mnemonicParsing="false" onAction="#loadAddBook" text="Add Book"/>
+								<MenuItem mnemonicParsing="false" onAction="#loadAddMember" text="Add Member"/>
 							</items>
 						</Menu>
 						<Menu mnemonicParsing="false" text="View">
 							<items>
-								<MenuItem mnemonicParsing="false" onAction="#loadBookTable" text="View Books" />
-                        <MenuItem mnemonicParsing="false" onAction="#loadMemberTable" text="View Members" />
-                        <MenuItem mnemonicParsing="false" onAction="#handleMenuFullScreen" text="View Fullscreen" />
+								<MenuItem mnemonicParsing="false" onAction="#loadBookTable" text="View Books"/>
+								<MenuItem mnemonicParsing="false" onAction="#loadMemberTable" text="View Members"/>
+								<MenuItem mnemonicParsing="false" onAction="#handleMenuFullScreen"
+										  text="View Fullscreen"/>
 							</items>
 						</Menu>
-                  <Menu mnemonicParsing="false" text="Help">
-                     <items>
-                        <MenuItem mnemonicParsing="false" text="About" />
-                     </items>
-                  </Menu>
+						<Menu mnemonicParsing="false" text="Help">
+							<items>
+								<MenuItem mnemonicParsing="false" text="About"/>
+							</items>
+						</Menu>
 					</menus>
 				</MenuBar>
 			</top>
@@ -73,29 +63,32 @@
 								</ImageView>
 							</graphic>
 						</Button>
-						<Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#loadMemberTable" prefHeight="150.0" prefWidth="153.0" text="View Members">
+						<Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+								onAction="#loadMemberTable" prefHeight="150.0" prefWidth="153.0" text="View Members">
 							<graphic>
 								<ImageView fitHeight="34.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
 									<image>
-										<Image url="@../icons/iconfinder_view_126581.png" />
+										<Image url="@../icons/iconfinder_view_126581.png"/>
 									</image>
 								</ImageView>
 							</graphic>
 						</Button>
-						<Button contentDisplay="TOP" layoutX="10.0" layoutY="74.0" mnemonicParsing="false" onAction="#loadBookTable" prefHeight="150.0" prefWidth="153.0" text="View Books">
+						<Button contentDisplay="TOP" layoutX="10.0" layoutY="74.0" mnemonicParsing="false"
+								onAction="#loadBookTable" prefHeight="150.0" prefWidth="153.0" text="View Books">
 							<graphic>
 								<ImageView fitHeight="34.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
 									<image>
-										<Image url="@../icons/view_members.png" />
+										<Image url="@../icons/view_members.png"/>
 									</image>
 								</ImageView>
 							</graphic>
 						</Button>
-						<Button contentDisplay="TOP" layoutX="10.0" layoutY="202.0" mnemonicParsing="false" onAction="#loadSettings" prefHeight="150.0" prefWidth="153.0" text="Settings">
+						<Button contentDisplay="TOP" layoutX="10.0" layoutY="202.0" mnemonicParsing="false"
+								onAction="#loadSettings" prefHeight="150.0" prefWidth="153.0" text="Settings">
 							<graphic>
 								<ImageView fitHeight="34.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
 									<image>
-										<Image url="@../icons/settings.png" />
+										<Image url="@../icons/settings.png"/>
 									</image>
 								</ImageView>
 							</graphic>

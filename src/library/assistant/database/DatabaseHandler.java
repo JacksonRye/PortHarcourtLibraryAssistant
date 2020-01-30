@@ -1,7 +1,12 @@
 package library.assistant.database;
 
+import library.assistant.alert.AlertMaker;
+import library.assistant.ui.listmembers.MemberListController;
+
 import javax.swing.*;
 import java.sql.*;
+
+import static library.assistant.ui.listbook.BookListController.Book;
 
 public final class DatabaseHandler {
     
@@ -151,17 +156,66 @@ public final class DatabaseHandler {
 			stmt = conn.createStatement();
 			stmt.execute(qu);
 			return true;
-		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(null, "Error: " 
-					+ ex.getMessage(), "Error Occured",
-					JOptionPane.ERROR_MESSAGE);
-			System.out.println("Exception at execQuery:dataHandler" + ex.getLocalizedMessage());
-			return false;
-		} finally {
-			
-		}
-	}
-    
-    
-    
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: "
+                            + ex.getMessage(), "Error Occured",
+                    JOptionPane.ERROR_MESSAGE);
+            System.out.println("Exception at execQuery:dataHandler" + ex.getLocalizedMessage());
+            return false;
+        } finally {
+
+        }
+    }
+
+    public boolean deleteBook(Book book) {
+        try {
+
+            String deleteStatement = "DELETE FROM BOOK WHERE id = ?";
+            PreparedStatement stmt = conn.prepareStatement(deleteStatement);
+            stmt.setString(1, book.getId());
+            int res = stmt.executeUpdate();
+            System.out.println(res);
+            return true;
+
+        } catch (SQLException ex) {
+            AlertMaker.showErrorMessage("Book Deletion Failed", "Error from SQL");
+        }
+        return false;
+    }
+
+    public boolean deleteMember(MemberListController.Member member) {
+        try {
+            String deleteStatement = "DELETE FROM MEMBER WHERE id = ?";
+            PreparedStatement stmt = conn.prepareStatement(deleteStatement);
+            stmt.setString(1, member.getId());
+            int res = stmt.executeUpdate();
+            if (res == 1) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getLocalizedMessage());
+        }
+        return false;
+
+    }
+
+
+    public boolean isBookAlreadyIssued(Book book) {
+        try {
+            String checkstmt = "SELECT COUNT(*) FROM ISSUE WHERE bookid=?";
+            PreparedStatement stmt = conn.prepareStatement(checkstmt);
+            stmt.setString(1, book.getId());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                System.out.println(count);
+                return (count > 0);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getLocalizedMessage());
+        }
+        return false;
+    }
+
+
 }

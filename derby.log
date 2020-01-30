@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Wed Jan 29 12:43:03 WAT 2020:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-016f-f11c-a228-0000059a71e8 
+Thu Jan 30 15:56:09 WAT 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-016f-f6f3-c868-000004162c50 
 on database directory /home/jackson/eclipse-workspace/Library Assistant/database with class loader sun.misc.Launcher$AppClassLoader@18b4aac2 
 Loaded from file:/home/jackson/java/db-derby-10.14.2.0-bin/lib/derby.jar
 java.vendor=Oracle Corporation
